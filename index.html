@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ottoman Turkish Food Cuisine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Raleway:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#C0181A;--red-dark:#8B0000;--red-deep:#5a0000;
+  --gold:#C9943A;--gold-lt:#E8BE6A;
+  --white:#fff;--offwhite:#FAF7F4;--cream:#F5EFE6;--smoke:#F2EEEA;
+  --ink:#1A0505;--muted:#7A4040;--border:#E0CABA;--err:#B00020;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--offwhite);font-family:'Raleway',sans-serif;color:var(--ink);min-height:100vh;}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#1a0000,#8B0000 45%,#C0181A 75%,#5a0000);position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(120deg,transparent 0,transparent 20px,rgba(255,255,255,.025) 20px,rgba(255,255,255,.025) 21px);pointer-events:none;}
+.hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:22px 20px 0;text-align:center;}
+.flame-row{display:flex;gap:8px;margin-bottom:10px;}
+.flame-dot{width:6px;height:6px;border-radius:50%;background:var(--gold-lt);box-shadow:0 0 8px 2px var(--gold);animation:fpulse 1.8s ease-in-out infinite;}
+.flame-dot:nth-child(2){animation-delay:.3s}.flame-dot:nth-child(3){animation-delay:.6s}.flame-dot:nth-child(4){animation-delay:.9s}.flame-dot:nth-child(5){animation-delay:1.2s}
+@keyframes fpulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.6)}}
+.logo-ring{width:82px;height:82px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#3a0000,#1a0000);border:2.5px solid var(--gold);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 5px rgba(201,148,58,.2),0 0 0 10px rgba(201,148,58,.07),0 8px 32px rgba(0,0,0,.6);margin-bottom:10px;position:relative;}
+.logo-ring::after{content:'';position:absolute;inset:-7px;border-radius:50%;border:1px dashed rgba(201,148,58,.4);}
+.logo-char{font-family:'Cinzel',serif;font-size:2.2rem;font-weight:900;color:var(--gold-lt);text-shadow:0 2px 8px rgba(0,0,0,.5);}
+.rest-name{font-family:'Cinzel',serif;font-weight:900;font-size:2.2rem;color:#fff;letter-spacing:5px;text-transform:uppercase;text-shadow:2px 2px 0 #5a0000,4px 4px 0 rgba(0,0,0,.3);}
+.rest-sub{background:var(--gold);padding:4px 22px;margin:6px 0;clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 50%,calc(100% - 8px) 100%,8px 100%,0% 50%);}
+.rest-sub span{font-family:'Raleway',sans-serif;font-weight:700;font-size:.72rem;color:var(--ink);letter-spacing:5px;text-transform:uppercase;}
+.ornament{width:100%;margin-top:10px;display:flex;align-items:center;}
+.orn-line{flex:1;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.orn-dia{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);flex:0 0 8px;margin:0 6px;box-shadow:0 0 8px var(--gold);}
+.orn-dot{width:4px;height:4px;background:var(--gold-lt);border-radius:50%;margin:0 4px;flex:0 0 4px;}
+.ticker-wrap{background:var(--ink);border-top:2px solid var(--gold);border-bottom:2px solid var(--gold);padding:7px 0;overflow:hidden;white-space:nowrap;position:relative;}
+.ticker-track{display:inline-flex;animation:tick 30s linear infinite;}
+.ticker-item{display:inline-flex;align-items:center;font-family:'Raleway',sans-serif;font-size:.8rem;color:var(--gold-lt);padding:0 26px;font-weight:500;}
+.tsep{color:var(--gold);margin-left:8px;}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-33.333%)}}
+
+/* NAV */
+.nav-tabs{background:var(--red-dark);display:flex;border-bottom:3px solid var(--gold);}
+.nav-tab{flex:1;padding:12px;color:rgba(255,255,255,.5);font-family:'Raleway',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;text-align:center;letter-spacing:2px;text-transform:uppercase;transition:all .2s;}
+.nav-tab.active{color:var(--gold-lt);border-bottom-color:var(--gold-lt);background:rgba(201,148,58,.1);}
+.page{display:none;}.page.active{display:block;}
+
+/* ══════════════════════════════════
+   ALBUM GRID  (the "gallery" view)
+══════════════════════════════════ */
+.albums-page{padding:14px 12px 80px;}
+.albums-heading{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+
+.albums-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.cat-card{
+  cursor:pointer;
+  border-radius:14px;
+  overflow:hidden;
+  background:var(--white);
+  border:2px solid var(--border);
+  box-shadow:0 2px 10px rgba(100,0,0,.08);
+  transition:transform .14s,box-shadow .14s;
+  -webkit-tap-highlight-color:transparent;
+}
+.cat-card:active{transform:scale(.94);box-shadow:0 5px 20px rgba(140,0,0,.22);}
+
+.cat-thumb{
+  width:100%;
+  aspect-ratio:1/1;
+  background:linear-gradient(135deg,var(--cream),var(--smoke));
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.cat-thumb img{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+  transition:transform .18s;
+}
+.cat-card:active .cat-thumb img{transform:scale(1.07);}
+.cat-fallback{font-size:2.2rem;line-height:1;}
+
+/* golden shimmer bar at bottom of thumb */
+.cat-thumb::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:32%;
+  background:linear-gradient(transparent,rgba(26,5,5,.45));
+  pointer-events:none;
+}
+
+.cat-name{
+  padding:7px 6px 8px;
+  font-family:'Raleway',sans-serif;font-weight:700;
+  font-size:.61rem;color:var(--ink);
+  text-align:center;letter-spacing:.2px;line-height:1.3;
+  background:var(--white);border-top:1.5px solid var(--border);
+}
+
+/* ══════════════════════════════════
+   INNER ALBUM VIEW
+══════════════════════════════════ */
+.album-view{display:none;padding-bottom:80px;}
+.album-view.open{display:block;}
+
+.album-topbar{
+  position:sticky;top:0;z-index:100;
+  background:var(--red-dark);
+  display:flex;align-items:center;gap:10px;
+  padding:11px 14px;border-bottom:2.5px solid var(--gold);
+  box-shadow:0 3px 14px rgba(0,0,0,.3);
+}
+.album-back{
+  background:rgba(255,255,255,.15);border:none;
+  border-radius:9px;padding:6px 12px;
+  color:#fff;font-family:'Raleway',sans-serif;font-weight:700;font-size:.82rem;
+  cursor:pointer;flex:0 0 auto;display:flex;align-items:center;gap:4px;
+  transition:background .15s;
+}
+.album-back:active{background:rgba(255,255,255,.3);}
+.album-back::before{content:'‹';font-size:1.1rem;line-height:1;}
+.album-title-bar{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;flex:1;text-shadow:1px 1px 0 rgba(0,0,0,.3);}
+
+/* list rows */
+.menu-list{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+.menu-row{
+  background:var(--white);
+  display:flex;align-items:center;
+  padding:12px 13px;gap:12px;
+  position:relative;
+  transition:background .12s;
+}
+.menu-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);opacity:0;transition:.15s;}
+.menu-row:active{background:var(--cream);}
+.menu-row:active::before{opacity:1;}
+
+.row-img{
+  width:62px;height:62px;border-radius:12px;
+  overflow:hidden;flex:0 0 62px;
+  border:1.5px solid var(--border);
+  background:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+}
+.row-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.row-emoji{font-size:1.9rem;}
+.row-info{flex:1;min-width:0;}
+.row-name{font-family:'Cinzel',serif;font-size:.88rem;font-weight:700;color:var(--ink);line-height:1.35;}
+.row-prices{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex:0 0 auto;}
+.price-row{display:flex;align-items:center;gap:4px;}
+.price-tag{font-size:.48rem;color:#fff;background:var(--red);padding:2px 5px;border-radius:4px;font-weight:700;letter-spacing:.5px;}
+.price-amt{font-family:'Playfair Display',serif;font-weight:700;color:var(--red-dark);font-size:.9rem;}
+.price-single{font-family:'Playfair Display',serif;font-weight:700;color:var(--red-dark);font-size:1rem;}
+.add-btn{width:36px;height:36px;border-radius:50%;border:2.5px solid var(--gold);background:var(--white);color:var(--gold);font-size:1.3rem;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 36px;font-weight:700;transition:all .15s;}
+.add-btn.added{background:linear-gradient(135deg,var(--gold),var(--red));color:#fff;border-color:transparent;}
+
+/* bev grid inside album */
+.bev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px;background:var(--offwhite);}
+.bev-card{background:var(--white);border-radius:14px;border:2px solid var(--border);padding:10px 7px;text-align:center;box-shadow:0 2px 8px rgba(100,0,0,.07);}
+.bev-img{width:56px;height:56px;border-radius:10px;overflow:hidden;margin:0 auto;border:1.5px solid var(--border);background:var(--cream);}
+.bev-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.bev-emoji{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--cream),var(--smoke));display:flex;align-items:center;justify-content:center;font-size:1.9rem;margin:0 auto;border:1.5px solid var(--border);}
+.bev-name{font-size:.66rem;margin-top:5px;font-family:'Cinzel',serif;font-weight:700;color:var(--ink);line-height:1.3;}
+.bev-price{font-family:'Playfair Display',serif;font-weight:700;color:var(--red-dark);font-size:.82rem;margin-top:2px;}
+.bev-btn{margin-top:7px;width:100%;padding:5px;border-radius:7px;border:2px solid var(--gold);background:var(--white);color:var(--gold);font-size:.66rem;cursor:pointer;font-family:'Raleway',sans-serif;font-weight:700;transition:all .15s;}
+.bev-btn.added{background:linear-gradient(135deg,var(--gold),var(--red));color:#fff;border-color:transparent;}
+
+/* platters */
+.platter-card{background:linear-gradient(135deg,var(--ink),var(--red-deep));padding:16px 15px;text-align:center;border-bottom:1px solid rgba(201,148,58,.3);position:relative;overflow:hidden;}
+.platter-card::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(201,148,58,.04) 8px,rgba(201,148,58,.04) 9px);}
+.platter-card img{width:140px;height:100px;border-radius:14px;object-fit:cover;margin:0 auto 10px;display:block;border:2px solid var(--gold);position:relative;z-index:1;}
+.platter-card .p-name{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;color:var(--gold-lt);letter-spacing:2px;text-transform:uppercase;position:relative;z-index:1;}
+.platter-card .p-desc{font-family:'Raleway',sans-serif;font-size:.72rem;color:rgba(255,255,255,.75);margin-top:5px;line-height:1.7;position:relative;z-index:1;}
+.platter-card .p-price{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--gold-lt);margin-top:7px;position:relative;z-index:1;}
+.platter-card .p-btn{margin-top:9px;padding:9px 28px;background:linear-gradient(135deg,var(--gold),var(--red));color:#fff;border:none;border-radius:22px;font-family:'Raleway',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;position:relative;z-index:1;}
+
+/* CART FAB */
+.cart-fab{position:fixed;bottom:20px;right:16px;background:linear-gradient(135deg,var(--gold),var(--red));color:#fff;border:2px solid rgba(255,255,255,.25);border-radius:50px;padding:13px 20px;display:flex;align-items:center;gap:8px;font-family:'Raleway',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;letter-spacing:1px;text-transform:uppercase;box-shadow:0 6px 24px rgba(140,0,0,.5);z-index:200;}
+.cart-fab.hidden{display:none;}
+.cart-badge{background:var(--gold-lt);color:var(--ink);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:900;}
+
+/* CART SHEET */
+.cart-overlay{position:fixed;inset:0;background:rgba(26,0,0,.6);z-index:300;display:none;align-items:flex-end;backdrop-filter:blur(2px);}
+.cart-overlay.open{display:flex;}
+.cart-sheet{background:#FDFBF9;width:100%;max-height:88vh;border-radius:22px 22px 0 0;overflow-y:auto;border-top:3px solid var(--gold);box-shadow:0 -8px 40px rgba(0,0,0,.3);}
+.cart-hdr{display:flex;justify-content:space-between;align-items:center;padding:15px 16px 12px;border-bottom:2px solid var(--border);position:sticky;top:0;background:var(--cream);z-index:10;}
+.cart-hdr h3{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;color:var(--ink);letter-spacing:1px;text-transform:uppercase;}
+.cart-close{font-size:1.4rem;cursor:pointer;color:var(--muted);background:none;border:none;font-weight:700;}
+.ot-wrap{padding:12px 14px 0;}
+.ot-label{font-size:.68rem;color:var(--muted);margin-bottom:7px;font-family:'Raleway',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+.ot-btns{display:flex;gap:7px;margin-bottom:12px;}
+.ot-btn{flex:1;padding:9px 5px;border-radius:11px;border:2px solid var(--border);background:var(--smoke);cursor:pointer;text-align:center;transition:all .18s;}
+.ot-icon{font-size:1.2rem;display:block;}
+.ot-name{font-size:.63rem;color:var(--muted);display:block;margin-top:2px;font-family:'Raleway',sans-serif;font-weight:600;letter-spacing:.5px;}
+.ot-btn.active{border-color:var(--red-dark);background:linear-gradient(135deg,var(--red-deep),var(--red-dark),var(--red));}
+.ot-btn.active .ot-name{color:#fff;font-weight:700;}
+.cust-form{margin:0 14px 10px;background:var(--smoke);border:2px solid var(--border);border-radius:12px;padding:12px;}
+.form-title{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;color:var(--red-dark);margin-bottom:9px;letter-spacing:.5px;text-transform:uppercase;}
+.f-field{margin-bottom:8px;}
+.f-field label{display:block;font-family:'Raleway',sans-serif;font-size:.7rem;font-weight:700;color:var(--muted);margin-bottom:3px;letter-spacing:.5px;text-transform:uppercase;}
+.req{color:var(--red);}
+.f-field input,.f-field textarea{width:100%;padding:9px 11px;border:2px solid var(--border);border-radius:9px;font-family:'Raleway',sans-serif;font-size:.88rem;color:var(--ink);outline:none;background:var(--white);resize:none;transition:border-color .15s;}
+.f-field input:focus,.f-field textarea:focus{border-color:var(--gold);}
+.f-field input.err,.f-field textarea.err{border-color:var(--err);background:#fff5f5;}
+.err-msg{font-size:.68rem;color:var(--err);margin-top:2px;display:none;}
+.err-msg.show{display:block;}
+.del-note{background:linear-gradient(135deg,var(--red-deep),var(--red-dark));color:#fff;border-radius:8px;padding:7px 11px;font-size:.72rem;font-family:'Raleway',sans-serif;font-weight:600;margin-bottom:8px;}
+.sugg-box{margin:0 12px 9px;border:2px dashed var(--gold);border-radius:12px;padding:9px;background:linear-gradient(135deg,#FFFBF0,#FFF5DC);}
+.sugg-ttl{font-size:.72rem;color:var(--gold);font-weight:700;margin-bottom:7px;font-family:'Raleway',sans-serif;letter-spacing:1px;text-transform:uppercase;}
+.sugg-chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.sugg-chips::-webkit-scrollbar{display:none;}
+.sugg-chip{flex:0 0 auto;padding:5px 11px;border-radius:18px;border:1.5px solid var(--gold);background:var(--white);font-family:'Raleway',sans-serif;font-weight:600;font-size:.73rem;color:var(--red-dark);cursor:pointer;white-space:nowrap;}
+.sugg-chip:active{background:var(--gold);color:#fff;}
+.cart-items{padding:3px 0;}
+.cart-row{display:flex;align-items:center;padding:8px 13px;gap:9px;border-bottom:1px solid var(--cream);}
+.cr-thumb{width:40px;height:40px;border-radius:9px;flex:0 0 40px;overflow:hidden;border:1.5px solid var(--border);background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
+.cr-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.cr-name{flex:1;font-size:.82rem;font-family:'Raleway',sans-serif;font-weight:600;color:var(--ink);}
+.cr-price{font-family:'Playfair Display',serif;font-weight:700;color:var(--red-dark);font-size:.9rem;}
+.qty-ctrl{display:flex;align-items:center;gap:5px;}
+.q-btn{width:26px;height:26px;border-radius:50%;border:2px solid var(--gold);background:var(--white);color:var(--gold);font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.q-num{font-family:'Raleway',sans-serif;font-weight:700;min-width:17px;text-align:center;font-size:.88rem;}
+.cart-foot{padding:13px 15px;border-top:2px solid var(--border);}
+.total-row{display:flex;justify-content:space-between;margin-bottom:13px;font-family:'Raleway',sans-serif;font-weight:700;font-size:.82rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;}
+.total-row span:last-child{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--red-dark);}
+.wa-btn{width:100%;background:linear-gradient(135deg,#25d366,#128C7E);color:#fff;border:none;border-radius:13px;padding:13px;font-size:.88rem;font-family:'Raleway',sans-serif;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;letter-spacing:1px;text-transform:uppercase;}
+.empty-cart{text-align:center;padding:34px;color:var(--muted);font-size:.85rem;font-family:'Raleway',sans-serif;}
+
+/* PORTION MODAL */
+.p-modal{position:fixed;inset:0;background:rgba(26,0,0,.65);z-index:400;display:none;align-items:flex-end;backdrop-filter:blur(2px);}
+.p-modal.open{display:flex;}
+.p-sheet{background:#FDFBF9;width:100%;border-radius:22px 22px 0 0;padding:20px 15px 34px;animation:sup .2s ease;border-top:3px solid var(--gold);}
+@keyframes sup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.p-title{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;margin-bottom:13px;text-align:center;color:var(--ink);letter-spacing:1px;text-transform:uppercase;}
+.p-opt{display:flex;justify-content:space-between;align-items:center;padding:13px 15px;border:2px solid var(--border);border-radius:12px;cursor:pointer;margin-bottom:8px;background:var(--smoke);transition:all .15s;}
+.p-opt:active{background:var(--cream);border-color:var(--gold);}
+.p-lbl{font-size:.9rem;font-family:'Raleway',sans-serif;font-weight:700;color:var(--ink);letter-spacing:.5px;text-transform:uppercase;}
+.p-price{font-family:'Playfair Display',serif;font-weight:700;color:var(--red-dark);font-size:.95rem;}
+.p-cancel{width:100%;padding:11px;border:2px solid var(--border);border-radius:11px;background:var(--white);font-family:'Raleway',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;color:var(--muted);margin-top:3px;letter-spacing:.5px;text-transform:uppercase;}
+
+/* SUCCESS */
+.order-ok{display:none;flex-direction:column;align-items:center;padding:34px 18px 38px;text-align:center;}
+.order-ok.show{display:flex;}
+.ok-icon{font-size:3rem;margin-bottom:10px;animation:bounce .5s cubic-bezier(.36,.07,.19,.97);}
+@keyframes bounce{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.ok-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--ink);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;}
+.ok-sub{font-size:.8rem;color:var(--muted);font-family:'Raleway',sans-serif;line-height:1.6;margin-bottom:18px;}
+.ok-new{width:100%;padding:12px;border-radius:13px;background:linear-gradient(135deg,var(--red-dark),var(--red));color:#fff;border:none;font-family:'Raleway',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;letter-spacing:1px;text-transform:uppercase;}
+
+/* INFO */
+.info-wrap{padding:13px;}
+.info-card{background:var(--white);border-radius:15px;overflow:hidden;margin-bottom:13px;box-shadow:0 3px 14px rgba(100,0,0,.08);border:2px solid var(--border);}
+.ic-hdr{background:linear-gradient(135deg,var(--red-dark),var(--red));padding:10px 13px;border-bottom:2px solid var(--gold);}
+.ic-hdr h3{color:#fff;font-size:.86rem;font-family:'Cinzel',serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.ic-body{padding:12px 13px;font-size:.82rem;line-height:2;font-family:'Raleway',sans-serif;}
+.h-row{display:flex;justify-content:space-between;border-bottom:1px dashed var(--border);padding:5px 0;font-size:.8rem;font-weight:600;}
+.h-row:last-child{border:none;}
+.map-link{display:flex;align-items:center;justify-content:center;gap:7px;background:#4285f4;color:#fff;border-radius:11px;padding:11px;width:100%;font-family:'Raleway',sans-serif;font-size:.82rem;font-weight:700;text-decoration:none;margin-top:9px;letter-spacing:.5px;text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="flame-row"><div class="flame-dot"></div><div class="flame-dot"></div><div class="flame-dot"></div><div class="flame-dot"></div><div class="flame-dot"></div></div>
+    <div class="logo-ring"><div class="logo-char">IYI</div></div>
+    <div class="rest-name">OTTOMAN</div>
+    <div class="rest-sub"><span>Turkish Food Cuisine</span></div>
+    <div class="ornament"><div class="orn-line"></div><div class="orn-dot"></div><div class="orn-dia"></div><div class="orn-dot"></div><div class="orn-line"></div></div>
+  </div>
+  <div class="ticker-wrap"><div class="ticker-track">
+    <span class="ticker-item">🥙 Welcome to Ottoman Turkish Food Cuisine <span class="tsep">✦</span></span>
+    <span class="ticker-item">🍕 Authentic Turkish Pizzas · Pide · Lahmacun <span class="tsep">✦</span></span>
+    <span class="ticker-item">🍔 Gourmet Burgers &amp; Wraps <span class="tsep">✦</span></span>
+    <span class="ticker-item">📍 College Road, Near Aamna Hospital, Daska <span class="tsep">✦</span></span>
+    <span class="ticker-item">🛵 Home Delivery · Min Order Rs. 1,000 <span class="tsep">✦</span></span>
+    <span class="ticker-item">🥙 Welcome to Ottoman Turkish Food Cuisine <span class="tsep">✦</span></span>
+    <span class="ticker-item">🍕 Authentic Turkish Pizzas · Pide · Lahmacun <span class="tsep">✦</span></span>
+    <span class="ticker-item">🍔 Gourmet Burgers &amp; Wraps <span class="tsep">✦</span></span>
+    <span class="ticker-item">📍 College Road, Near Aamna Hospital, Daska <span class="tsep">✦</span></span>
+    <span class="ticker-item">🛵 Home Delivery · Min Order Rs. 1,000 <span class="tsep">✦</span></span>
+    <span class="ticker-item">🥙 Welcome to Ottoman Turkish Food Cuisine <span class="tsep">✦</span></span>
+    <span class="ticker-item">🍕 Authentic Turkish Pizzas · Pide · Lahmacun <span class="tsep">✦</span></span>
+    <span class="ticker-item">🍔 Gourmet Burgers &amp; Wraps <span class="tsep">✦</span></span>
+    <span class="ticker-item">📍 College Road, Near Aamna Hospital, Daska <span class="tsep">✦</span></span>
+    <span class="ticker-item">🛵 Home Delivery · Min Order Rs. 1,000 <span class="tsep">✦</span></span>
+  </div></div>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <div class="nav-tab active" data-tab="menu">🍽️ Menu</div>
+  <div class="nav-tab" data-tab="info">📍 Info</div>
+</div>
+
+<!-- MENU PAGE -->
+<div class="page active" id="menuPage">
+
+  <!-- ALBUM GRID -->
+  <div class="albums-page" id="albumsGrid">
+    <div class="albums-heading">📋 Our Menu — Tap a category to explore</div>
+    <div class="albums-grid" id="catGrid">
+<div class="cat-card" onclick="openAlbum('sandwiches')" data-key="sandwiches"><div class="cat-thumb" id="cthumb-sandwiches"><span class="cat-fallback">🥪</span></div><div class="cat-name">Sandwiches</div></div>
+<div class="cat-card" onclick="openAlbum('burgers')" data-key="burgers"><div class="cat-thumb" id="cthumb-burgers"><span class="cat-fallback">🍔</span></div><div class="cat-name">Ottoman Burgers</div></div>
+<div class="cat-card" onclick="openAlbum('sigburgers')" data-key="sigburgers"><div class="cat-thumb" id="cthumb-sigburgers"><span class="cat-fallback">🏆</span></div><div class="cat-name">Signature Burgers</div></div>
+<div class="cat-card" onclick="openAlbum('specburgers')" data-key="specburgers"><div class="cat-thumb" id="cthumb-specburgers"><span class="cat-fallback">⭐</span></div><div class="cat-name">Special Burgers</div></div>
+<div class="cat-card" onclick="openAlbum('fries')" data-key="fries"><div class="cat-thumb" id="cthumb-fries"><span class="cat-fallback">🍟</span></div><div class="cat-name">Loaded Fries</div></div>
+<div class="cat-card" onclick="openAlbum('wraps')" data-key="wraps"><div class="cat-thumb" id="cthumb-wraps"><span class="cat-fallback">🌯</span></div><div class="cat-name">Paratha Wraps</div></div>
+<div class="cat-card" onclick="openAlbum('ospizza')" data-key="ospizza"><div class="cat-thumb" id="cthumb-ospizza"><span class="cat-fallback">🍕</span></div><div class="cat-name">Ottoman Special Pizza</div></div>
+<div class="cat-card" onclick="openAlbum('opizza')" data-key="opizza"><div class="cat-thumb" id="cthumb-opizza"><span class="cat-fallback">🍕</span></div><div class="cat-name">Ottoman Pizza</div></div>
+<div class="cat-card" onclick="openAlbum('sigpizza')" data-key="sigpizza"><div class="cat-thumb" id="cthumb-sigpizza"><span class="cat-fallback">🍕</span></div><div class="cat-name">Signature Pizza</div></div>
+<div class="cat-card" onclick="openAlbum('tradpizza')" data-key="tradpizza"><div class="cat-thumb" id="cthumb-tradpizza"><span class="cat-fallback">🍕</span></div><div class="cat-name">Traditional Pizza</div></div>
+<div class="cat-card" onclick="openAlbum('cheesestick')" data-key="cheesestick"><div class="cat-thumb" id="cthumb-cheesestick"><span class="cat-fallback">🧀</span></div><div class="cat-name">Cheese Stick</div></div>
+<div class="cat-card" onclick="openAlbum('ffplater')" data-key="ffplater"><div class="cat-thumb" id="cthumb-ffplater"><span class="cat-fallback">🎉</span></div><div class="cat-name">Fast Food Plater</div></div>
+<div class="cat-card" onclick="openAlbum('appetizers')" data-key="appetizers"><div class="cat-thumb" id="cthumb-appetizers"><span class="cat-fallback">🍲</span></div><div class="cat-name">Appetizers</div></div>
+<div class="cat-card" onclick="openAlbum('wings')" data-key="wings"><div class="cat-thumb" id="cthumb-wings"><span class="cat-fallback">🍗</span></div><div class="cat-name">Wings</div></div>
+<div class="cat-card" onclick="openAlbum('nuggets')" data-key="nuggets"><div class="cat-thumb" id="cthumb-nuggets"><span class="cat-fallback">🍗</span></div><div class="cat-name">Nuggets & Strips</div></div>
+<div class="cat-card" onclick="openAlbum('pide')" data-key="pide"><div class="cat-thumb" id="cthumb-pide"><span class="cat-fallback">🫓</span></div><div class="cat-name">Turkish Pide</div></div>
+<div class="cat-card" onclick="openAlbum('lahmacun')" data-key="lahmacun"><div class="cat-thumb" id="cthumb-lahmacun"><span class="cat-fallback">🫓</span></div><div class="cat-name">Lahmacun</div></div>
+<div class="cat-card" onclick="openAlbum('osig')" data-key="osig"><div class="cat-thumb" id="cthumb-osig"><span class="cat-fallback">🥙</span></div><div class="cat-name">Signature Durum</div></div>
+<div class="cat-card" onclick="openAlbum('durum')" data-key="durum"><div class="cat-thumb" id="cthumb-durum"><span class="cat-fallback">🌯</span></div><div class="cat-name">Ottoman Durum</div></div>
+<div class="cat-card" onclick="openAlbum('pocketdoner')" data-key="pocketdoner"><div class="cat-thumb" id="cthumb-pocketdoner"><span class="cat-fallback">🫓</span></div><div class="cat-name">Pocket Doner</div></div>
+<div class="cat-card" onclick="openAlbum('damkanali')" data-key="damkanali"><div class="cat-thumb" id="cthumb-damkanali"><span class="cat-fallback">🍖</span></div><div class="cat-name">Dam Kanali</div></div>
+<div class="cat-card" onclick="openAlbum('platters')" data-key="platters"><div class="cat-thumb" id="cthumb-platters"><span class="cat-fallback">🍱</span></div><div class="cat-name">Special Platters</div></div>
+<div class="cat-card" onclick="openAlbum('rice')" data-key="rice"><div class="cat-thumb" id="cthumb-rice"><span class="cat-fallback">🍚</span></div><div class="cat-name">Thai Chinese Rice</div></div>
+<div class="cat-card" onclick="openAlbum('gravy')" data-key="gravy"><div class="cat-thumb" id="cthumb-gravy"><span class="cat-fallback">🍛</span></div><div class="cat-name">Thai Gravies</div></div>
+<div class="cat-card" onclick="openAlbum('pasta')" data-key="pasta"><div class="cat-thumb" id="cthumb-pasta"><span class="cat-fallback">🍝</span></div><div class="cat-name">Ottoman Pasta</div></div>
+<div class="cat-card" onclick="openAlbum('chowmian')" data-key="chowmian"><div class="cat-thumb" id="cthumb-chowmian"><span class="cat-fallback">🍜</span></div><div class="cat-name">Chowmians</div></div>
+<div class="cat-card" onclick="openAlbum('desserts')" data-key="desserts"><div class="cat-thumb" id="cthumb-desserts"><span class="cat-fallback">🍮</span></div><div class="cat-name">Turkish Desserts</div></div>
+<div class="cat-card" onclick="openAlbum('drinks')" data-key="drinks"><div class="cat-thumb" id="cthumb-drinks"><span class="cat-fallback">🥤</span></div><div class="cat-name">Mocktails</div></div>
+<div class="cat-card" onclick="openAlbum('hotdrinks')" data-key="hotdrinks"><div class="cat-thumb" id="cthumb-hotdrinks"><span class="cat-fallback">☕</span></div><div class="cat-name">Hot Drinks</div></div>
+<div class="cat-card" onclick="openAlbum('sides')" data-key="sides"><div class="cat-thumb" id="cthumb-sides"><span class="cat-fallback">🍟</span></div><div class="cat-name">Sides & Extras</div></div>
+
+    </div>
+  </div>
+
+  <!-- ITEM LIST (album open) -->
+  <div class="album-view" id="albumView">
+    <div class="album-topbar">
+      <button class="album-back" onclick="closeAlbum()"> Back</button>
+      <div class="album-title-bar" id="albumTitle"></div>
+    </div>
+    <div id="albumItems"></div>
+  </div>
+
+</div>
+
+<!-- INFO PAGE -->
+<div class="page" id="infoPage">
+  <div class="info-wrap">
+    <div class="info-card">
+      <div class="ic-hdr"><h3>📍 Location</h3></div>
+      <div class="ic-body">College Road, Near Aamna Hospital, Daska<br>
+        <a class="map-link" href="https://maps.google.com/?q=Ottoman+Restaurant+Daska" target="_blank">📍 Open in Google Maps</a>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="ic-hdr"><h3>📞 Contact &amp; Delivery</h3></div>
+      <div class="ic-body">
+        <div class="h-row"><span>WhatsApp / Order</span><span>0321-0786 776</span></div>
+        <div class="h-row"><span>Phone 2</span><span>0312-0786 776</span></div>
+        <div class="h-row"><span>Phone 3</span><span>0316-0786 776</span></div>
+        <div class="h-row"><span>Delivery Charge</span><span>Rs. 150</span></div>
+        <div class="h-row"><span>Minimum Order</span><span>Rs. 1,000</span></div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="ic-hdr"><h3>🕐 Opening Hours</h3></div>
+      <div class="ic-body"><div class="h-row"><span>Monday – Sunday</span><span>11:00 AM – 12:00 AM</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CART FAB -->
+<button class="cart-fab hidden" id="cartFab" onclick="openCart()">🛒 Cart <span class="cart-badge" id="cartBadge">0</span></button>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
+  <div class="cart-sheet">
+    <div class="cart-hdr"><h3>🛒 Your Order</h3><button class="cart-close" onclick="closeCart()">✕</button></div>
+    <div class="ot-wrap">
+      <div class="ot-label">Order Type</div>
+      <div class="ot-btns">
+        <div class="ot-btn active" id="ot-dine" onclick="selOT('dine',this)"><span class="ot-icon">🍽️</span><span class="ot-name">Dine In</span></div>
+        <div class="ot-btn" id="ot-pickup" onclick="selOT('pickup',this)"><span class="ot-icon">🛍️</span><span class="ot-name">Pickup</span></div>
+        <div class="ot-btn" id="ot-delivery" onclick="selOT('delivery',this)"><span class="ot-icon">🛵</span><span class="ot-name">Delivery</span></div>
+      </div>
+    </div>
+    <div class="cust-form" id="custForm">
+      <div id="fDine"><div class="form-title">🍽️ Dine In</div><div class="f-field"><label>Table Number <span class="req">*</span></label><input type="text" id="fTable" placeholder="e.g. Table 5"><div class="err-msg" id="eTable">Please enter table number</div></div></div>
+      <div id="fPickup" style="display:none"><div class="form-title">🛍️ Pickup</div><div class="f-field"><label>Your Name <span class="req">*</span></label><input type="text" id="fPName" placeholder="Your name"><div class="err-msg" id="ePName">Please enter your name</div></div></div>
+      <div id="fDelivery" style="display:none">
+        <div class="form-title">🛵 Delivery Details</div>
+        <div class="del-note">🛵 Delivery Charge: Rs. 150 &nbsp;|&nbsp; Min. Order: Rs. 1,000</div>
+        <div class="f-field"><label>Full Name <span class="req">*</span></label><input type="text" id="fDName" placeholder="Your full name"><div class="err-msg" id="eDName">Please enter your name</div></div>
+        <div class="f-field"><label>Address <span class="req">*</span></label><textarea id="fAddr" rows="2" placeholder="House no, Street, Area..."></textarea><div class="err-msg" id="eAddr">Please enter delivery address</div></div>
+        <div class="f-field"><label>Phone <span class="req">*</span></label><input type="tel" id="fPhone" placeholder="03XX-XXXXXXX"><div class="err-msg" id="ePhone">Please enter phone number</div></div>
+      </div>
+    </div>
+    <div class="sugg-box" id="suggBox" style="display:none"><div class="sugg-ttl">✨ Add these too?</div><div class="sugg-chips" id="suggChips"></div></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot" id="cartFoot" style="display:none">
+      <div class="total-row"><span>Total Amount</span><span id="cartTotal">Rs. 0</span></div>
+      <button class="wa-btn" onclick="doOrder()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.556 4.123 1.528 5.854L.057 23.215a.563.563 0 0 0 .687.687l5.379-1.473A11.962 11.962 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.75 9.75 0 1 1 0-19.5 9.75 9.75 0 0 1 0 19.5z"/></svg>
+        Confirm via WhatsApp
+      </button>
+    </div>
+    <div class="order-ok" id="orderOk"><div class="ok-icon">✅</div><div class="ok-title">Order Sent!</div><div class="ok-sub">Your order has been sent via WhatsApp.<br>Ottoman will confirm shortly.</div><button class="ok-new" onclick="resetOrder()">🍽️ New Order</button></div>
+    <div class="empty-cart" id="emptyCart">Cart is empty 🛒<br><small style="color:var(--border);font-size:.7rem;">Tap any category to browse</small></div>
+  </div>
+</div>
+
+<!-- PORTION MODAL -->
+<div class="p-modal" id="pModal">
+  <div class="p-sheet">
+    <div class="p-title" id="pTitle"></div>
+    <div id="pOpts"></div>
+    <button class="p-cancel" onclick="closePModal()">Cancel</button>
+  </div>
+</div>
+
+<script>
+const WA='923210786776';
+let OT='dine', cart=[];
+
+const IMGS = {
+  // Sandwiches
+  ottoman_sp_sandwich_chicken: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&q=80",
+  ottoman_sp_sandwich_beef: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80",
+  et_donner_sandwich: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80",
+  panini_sandwich: "https://images.unsplash.com/photo-1528736235302-52922df5c122?w=400&q=80",
+
+  // Burgers
+  zinger_burger: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80",
+  patty_burger: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&q=80",
+  grill_fillet: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=400&q=80",
+  space_fillet: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&q=80",
+  planet_burger: "https://images.unsplash.com/photo-1602030638412-bb8dcc0bc8b0?w=400&q=80",
+  mangol_bite: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&q=80",
+  ultimate_burger: "https://images.unsplash.com/photo-1551782450-17144efb9c50?w=400&q=80",
+  pizza_burger: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400&q=80",
+  lava_burger: "https://images.unsplash.com/photo-1586816001966-79b736744398?w=400&q=80",
+
+  // Fries
+  bbq_fries: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&q=80",
+  periperi_fries: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=400&q=80",
+  crunchy_fries: "https://images.unsplash.com/photo-1518013431117-eb1465fa5752?w=400&q=80",
+  french_fries: "https://images.unsplash.com/photo-1585109649139-366815a0d713?w=400&q=80",
+
+  // Wraps
+  chicken_cheese_paratha: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
+  crispy_cheese_paratha: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
+  taco_wrap: "https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?w=400&q=80",
+  crunch_wrap: "https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?w=400&q=80",
+
+  // Pizza
+  donner_pizza_chicken: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80",
+  donner_pizza_beef: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&q=80",
+  lazania_pizza: "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=400&q=80",
+  ottoman_pizza: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&q=80",
+  signature_pizza: "https://images.unsplash.com/photo-1528137871618-79d2761e3fd5?w=400&q=80",
+  trad_pizza: "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?w=400&q=80",
+  cheese_stick: "https://images.unsplash.com/photo-1531749668029-2db88e4276c7?w=400&q=80",
+
+  // Platters
+  ff_plater: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80",
+  family_platter: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80",
+  kusbasi_tawa: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80",
+
+  // Appetizers & Soups
+  hot_sour_soup: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80",
+  ottoman_sp_soup: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",
+
+  // Wings & Nuggets
+  hot_wings: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=400&q=80",
+  hot_shots: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=400&q=80",
+  garlic_wings: "https://images.unsplash.com/photo-1606728035253-49e8a23146de?w=400&q=80",
+  honey_chili_wings: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80",
+  nuggets: "https://images.unsplash.com/photo-1562967914-608f82629710?w=400&q=80",
+  strips: "https://images.unsplash.com/photo-1615361200141-f45040f367be?w=400&q=80",
+
+  // Turkish Pide & Lahmacun
+  kusbasi_pide: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?w=400&q=80",
+  karisik_pide: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
+  kasarli_pide: "https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&q=80",
+  ottoman_sp_pide: "https://images.unsplash.com/photo-1571671022398-2f31e56f54e6?w=400&q=80",
+  lahmacun_chicken: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&q=80",
+  kasarli_lahmacun: "https://images.unsplash.com/photo-1592415486689-125cbbfcbee2?w=400&q=80",
+
+  // Durum & Doner
+  special_doner_durum: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
+  tavuk_durum: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
+  et_durum: "https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?w=400&q=80",
+  turkish_shawarma: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400&q=80",
+  pocket_doner: "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&q=80",
+
+  // Dam Kanali
+  tavuk_shoyu: "https://images.unsplash.com/photo-1598103442097-8b74394b95c8?w=400&q=80",
+  asgara_boti: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=400&q=80",
+  dam_kanali: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
+
+  // Rice & Gravy
+  thai_chinese: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&q=80",
+  thai_chinese_gravy: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80",
+
+  // Pasta
+  alfredo_pasta: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&q=80",
+  fajita_pasta: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&q=80",
+  macroni_pasta: "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=400&q=80",
+  cheesy_pasta: "https://images.unsplash.com/photo-1587281244965-d3e5c2d0d22d?w=400&q=80",
+  chowmians: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&q=80",
+
+  // Desserts
+  kunafa: "https://images.unsplash.com/photo-1579306194872-64d3b7bac4c2?w=400&q=80",
+  basbousa: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&q=80",
+  creamy_basbousa: "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=400&q=80",
+
+  // Drinks
+  blue_lagoon: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&q=80",
+  blue_berry: "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400&q=80",
+  strawberry_mocktail: "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80",
+  fresh_lime: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80",
+  lemonade: "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400&q=80",
+  mint_margarita: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&q=80",
+
+  // Sides
+  dip_sauces: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400&q=80",
+};
+
+// Inject covers after IMGS is defined
+(()=>{ var e=document.getElementById("cthumb-sandwiches"); if(e&&IMGS.ottoman_sp_sandwich_chicken){ e.innerHTML='<img src="'+IMGS.ottoman_sp_sandwich_chicken+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-burgers"); if(e&&IMGS.zinger_burger){ e.innerHTML='<img src="'+IMGS.zinger_burger+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-sigburgers"); if(e&&IMGS.space_fillet){ e.innerHTML='<img src="'+IMGS.space_fillet+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-specburgers"); if(e&&IMGS.ultimate_burger){ e.innerHTML='<img src="'+IMGS.ultimate_burger+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-fries"); if(e&&IMGS.bbq_fries){ e.innerHTML='<img src="'+IMGS.bbq_fries+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-wraps"); if(e&&IMGS.taco_wrap){ e.innerHTML='<img src="'+IMGS.taco_wrap+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-ospizza"); if(e&&IMGS.donner_pizza_chicken){ e.innerHTML='<img src="'+IMGS.donner_pizza_chicken+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-opizza"); if(e&&IMGS.ottoman_pizza){ e.innerHTML='<img src="'+IMGS.ottoman_pizza+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-sigpizza"); if(e&&IMGS.signature_pizza){ e.innerHTML='<img src="'+IMGS.signature_pizza+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-tradpizza"); if(e&&IMGS.trad_pizza){ e.innerHTML='<img src="'+IMGS.trad_pizza+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-cheesestick"); if(e&&IMGS.cheese_stick){ e.innerHTML='<img src="'+IMGS.cheese_stick+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-ffplater"); if(e&&IMGS.ff_plater){ e.innerHTML='<img src="'+IMGS.ff_plater+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-appetizers"); if(e&&IMGS.hot_sour_soup){ e.innerHTML='<img src="'+IMGS.hot_sour_soup+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-wings"); if(e&&IMGS.hot_wings){ e.innerHTML='<img src="'+IMGS.hot_wings+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-nuggets"); if(e&&IMGS.nuggets){ e.innerHTML='<img src="'+IMGS.nuggets+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-pide"); if(e&&IMGS.kusbasi_pide){ e.innerHTML='<img src="'+IMGS.kusbasi_pide+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-lahmacun"); if(e&&IMGS.lahmacun_chicken){ e.innerHTML='<img src="'+IMGS.lahmacun_chicken+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-osig"); if(e&&IMGS.special_doner_durum){ e.innerHTML='<img src="'+IMGS.special_doner_durum+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-durum"); if(e&&IMGS.et_durum){ e.innerHTML='<img src="'+IMGS.et_durum+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-pocketdoner"); if(e&&IMGS.pocket_doner){ e.innerHTML='<img src="'+IMGS.pocket_doner+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-damkanali"); if(e&&IMGS.dam_kanali){ e.innerHTML='<img src="'+IMGS.dam_kanali+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-platters"); if(e&&IMGS.family_platter){ e.innerHTML='<img src="'+IMGS.family_platter+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-rice"); if(e&&IMGS.thai_chinese){ e.innerHTML='<img src="'+IMGS.thai_chinese+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-gravy"); if(e&&IMGS.thai_chinese_gravy){ e.innerHTML='<img src="'+IMGS.thai_chinese_gravy+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-pasta"); if(e&&IMGS.alfredo_pasta){ e.innerHTML='<img src="'+IMGS.alfredo_pasta+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-chowmian"); if(e&&IMGS.chowmians){ e.innerHTML='<img src="'+IMGS.chowmians+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-desserts"); if(e&&IMGS.kunafa){ e.innerHTML='<img src="'+IMGS.kunafa+'" alt="">'; } })();
+(()=>{ var e=document.getElementById("cthumb-drinks"); if(e&&IMGS.blue_lagoon){ e.innerHTML='<img src="'+IMGS.blue_lagoon+'" alt="">'; } })();
+
+(()=>{ var e=document.getElementById("cthumb-sides"); if(e&&IMGS.french_fries){ e.innerHTML='<img src="'+IMGS.french_fries+'" alt="">'; } })();
+
+const META={
+  sandwiches:{icon:'🥪',label:'Sandwiches'},burgers:{icon:'🍔',label:'Ottoman Burgers'},
+  sigburgers:{icon:'🏆',label:'Signature Burgers'},specburgers:{icon:'⭐',label:'Special Burgers'},
+  fries:{icon:'🍟',label:'Loaded Fries'},wraps:{icon:'🌯',label:'Paratha Wraps'},
+  ospizza:{icon:'🍕',label:'Ottoman Special Pizza'},opizza:{icon:'🍕',label:'Ottoman Pizza'},
+  sigpizza:{icon:'🍕',label:'Signature Pizza'},tradpizza:{icon:'🍕',label:'Traditional Pizza'},
+  cheesestick:{icon:'🧀',label:'Cheese Stick'},ffplater:{icon:'🎉',label:'Fast Food Plater'},
+  appetizers:{icon:'🍲',label:'Appetizers'},wings:{icon:'🍗',label:'Wings'},
+  nuggets:{icon:'🍗',label:'Nuggets & Strips'},pide:{icon:'🫓',label:'Turkish Pide'},
+  lahmacun:{icon:'🫓',label:'Lahmacun'},osig:{icon:'🥙',label:'Ottoman Signature'},
+  durum:{icon:'🌯',label:'Ottoman Durum'},pocketdoner:{icon:'🫓',label:'Pocket Doner'},
+  damkanali:{icon:'🍖',label:'Dam Kanali'},platters:{icon:'🍱',label:'Special Platters'},
+  rice:{icon:'🍚',label:'Thai Chinese Rice'},gravy:{icon:'🍛',label:'Thai Chinese Gravy'},
+  pasta:{icon:'🍝',label:'Ottoman Pasta'},chowmian:{icon:'🍜',label:'Chowmians'},
+  desserts:{icon:'🍮',label:'Turkish Desserts'},drinks:{icon:'🥤',label:'Mocktails'},
+  hotdrinks:{icon:'☕',label:'Hot Drinks'},sides:{icon:'🍟',label:'Sides & Extras'},
+};
+
+const D={
+  sandwiches:[
+    {id:'s1',n:'Ottoman Special Sandwich (Chicken)',img:IMGS.ottoman_sp_sandwich_chicken,portions:[{l:'Chicken',p:550}]},
+    {id:'s2',n:'Ottoman Special Sandwich (Beef)',img:IMGS.ottoman_sp_sandwich_beef,portions:[{l:'Beef',p:750}]},
+    {id:'s3',n:'ET Donner Sandwich (Chicken)',img:IMGS.et_donner_sandwich,portions:[{l:'Chicken',p:600}]},
+    {id:'s4',n:'ET Donner Sandwich (Beef)',img:IMGS.et_donner_sandwich,portions:[{l:'Beef',p:800}]},
+    {id:'s5',n:'Panini Sandwich',img:IMGS.panini_sandwich,price:450},
+  ],
+  burgers:[
+    {id:'b1',n:'Zinger Burger',img:IMGS.zinger_burger,price:400},
+    {id:'b2',n:'Patty Burger',img:IMGS.patty_burger,price:300},
+    {id:'b3',n:'Grill Fillet Burger',img:IMGS.grill_fillet,price:500},
+  ],
+  sigburgers:[
+    {id:'sb1',n:'Space Fillet',img:IMGS.space_fillet,price:700},
+    {id:'sb2',n:'Planet Burger',img:IMGS.planet_burger,price:700},
+    {id:'sb3',n:'Mangol Bite Beef (Single)',img:IMGS.mangol_bite,price:500},
+    {id:'sb4',n:'Mangol Bite Beef (Double)',img:IMGS.mangol_bite,price:750},
+  ],
+  specburgers:[
+    {id:'spb1',n:'Ultimate Burger',img:IMGS.ultimate_burger,price:550},
+    {id:'spb2',n:'Pizza Burger',img:IMGS.pizza_burger,price:550},
+    {id:'spb3',n:'Lava Burger',img:IMGS.lava_burger,price:800},
+  ],
+  fries:[
+    {id:'f1',n:'Bar B Q Fries',img:IMGS.bbq_fries,price:700},
+    {id:'f2',n:'Peri Peri Fries',img:IMGS.periperi_fries,price:700},
+    {id:'f3',n:'Crunchy Fries',img:IMGS.crunchy_fries,price:750},
+  ],
+  wraps:[
+    {id:'w1',n:'Chicken Cheese Paratha',img:IMGS.chicken_cheese_paratha,price:350},
+    {id:'w2',n:'Crispy Cheese Paratha',img:IMGS.crispy_cheese_paratha,price:450},
+    {id:'w3',n:'Taco Wrap',img:IMGS.taco_wrap,price:550},
+    {id:'w4',n:'Crunch Wrap',img:IMGS.crunch_wrap,price:450},
+  ],
+  ospizza:[
+    {id:'op1',n:'Donner Pizza — Chicken',img:IMGS.donner_pizza_chicken,portions:[{l:'M',p:1400},{l:'L',p:2100},{l:'XL',p:2600}]},
+    {id:'op2',n:'Donner Pizza — Beef',img:IMGS.donner_pizza_beef,portions:[{l:'M',p:1600},{l:'L',p:2400},{l:'XL',p:2900}]},
+    {id:'op3',n:'Lazania Pizza',img:IMGS.lazania_pizza,portions:[{l:'M',p:1350},{l:'L',p:2000}]},
+  ],
+  opizza:[
+    {id:'opo1',n:'Cheese Stuff Pizza',img:IMGS.ottoman_pizza,portions:[{l:'S',p:750},{l:'M',p:1350},{l:'L',p:2000},{l:'XL',p:2400}]},
+    {id:'opo2',n:'Mughlai Chicken Pizza',img:IMGS.ottoman_pizza,portions:[{l:'S',p:750},{l:'M',p:1350},{l:'L',p:2000},{l:'XL',p:2400}]},
+    {id:'opo3',n:'Ottoman Special Pizza',img:IMGS.ottoman_pizza,portions:[{l:'M',p:1400},{l:'L',p:2100},{l:'XL',p:2600}]},
+  ],
+  sigpizza:[
+    {id:'sp1',n:'Malai Boti Pizza',img:IMGS.signature_pizza,portions:[{l:'S',p:750},{l:'M',p:1300},{l:'L',p:1900},{l:'XL',p:2300}]},
+    {id:'sp2',n:'Creamy Melt Pizza',img:IMGS.signature_pizza,portions:[{l:'S',p:750},{l:'M',p:1300},{l:'L',p:1900},{l:'XL',p:2300}]},
+    {id:'sp3',n:'Kebab Crust Pizza',img:IMGS.signature_pizza,portions:[{l:'S',p:750},{l:'M',p:1300},{l:'L',p:1900},{l:'XL',p:2300}]},
+    {id:'sp4',n:'Crown Crust Pizza',img:IMGS.signature_pizza,portions:[{l:'S',p:750},{l:'M',p:1300},{l:'L',p:1900},{l:'XL',p:2300}]},
+  ],
+  tradpizza:[
+    {id:'tp1',n:'Chicken Tikka Pizza',img:IMGS.trad_pizza,portions:[{l:'S',p:650},{l:'M',p:1250},{l:'L',p:1700},{l:'XL',p:2000}]},
+    {id:'tp2',n:'Chicken Fajita Pizza',img:IMGS.trad_pizza,portions:[{l:'S',p:650},{l:'M',p:1250},{l:'L',p:1700},{l:'XL',p:2000}]},
+    {id:'tp3',n:'Hot & Spicy Pizza',img:IMGS.trad_pizza,portions:[{l:'S',p:650},{l:'M',p:1250},{l:'L',p:1700},{l:'XL',p:2000}]},
+    {id:'tp4',n:'Tandoori Pizza',img:IMGS.trad_pizza,portions:[{l:'S',p:650},{l:'M',p:1250},{l:'L',p:1700},{l:'XL',p:2000}]},
+  ],
+  cheesestick:[{id:'cs1',n:'Cheese Stick',img:IMGS.cheese_stick,portions:[{l:'M',p:1050},{l:'L',p:1550}]}],
+  appetizers:[
+    {id:'ap1',n:'Hot N Sour Soup (Single)',img:IMGS.hot_sour_soup,price:250},
+    {id:'ap2',n:'Hot N Sour Soup (4 Person)',img:IMGS.hot_sour_soup,price:900},
+    {id:'ap3',n:'Ottoman Special Soup (1 Person)',img:IMGS.ottoman_sp_soup,price:350},
+    {id:'ap4',n:'Ottoman Special Soup (4 Person)',img:IMGS.ottoman_sp_soup,price:1200},
+  ],
+  wings:[
+    {id:'hw1',n:'Hot Wings (5 Pcs)',img:IMGS.hot_wings,price:350},
+    {id:'hw2',n:'Hot Wings (10 Pcs)',img:IMGS.hot_wings,price:600},
+    {id:'hw3',n:'Hot Shots (5 Pcs)',img:IMGS.hot_shots,price:350},
+    {id:'hw4',n:'Hot Shots (10 Pcs)',img:IMGS.hot_shots,price:600},
+    {id:'hw5',n:'Garlic Wings (5 Pcs)',img:IMGS.garlic_wings,price:500},
+    {id:'hw6',n:'Garlic Wings (10 Pcs)',img:IMGS.garlic_wings,price:950},
+    {id:'hw7',n:'Honey Chili Wings (5 Pcs)',img:IMGS.honey_chili_wings,price:500},
+    {id:'hw8',n:'Honey Chili Wings (10 Pcs)',img:IMGS.honey_chili_wings,price:950},
+  ],
+  nuggets:[
+    {id:'ng1',n:'Nuggets (5 Pcs)',img:IMGS.nuggets,price:350},
+    {id:'ng2',n:'Nuggets (10 Pcs)',img:IMGS.nuggets,price:600},
+    {id:'ng3',n:'Strips (5 Pcs)',img:IMGS.strips,price:400},
+    {id:'ng4',n:'Strips (10 Pcs) with Dip Sauce',img:IMGS.strips,price:850},
+  ],
+  pide:[
+    {id:'pd1',n:"Kusbasi Pide (Beef Chang's)",img:IMGS.kusbasi_pide,price:850},
+    {id:'pd2',n:'Karisik Pide (Chicken)',img:IMGS.karisik_pide,price:800},
+    {id:'pd3',n:'Kasarli Pide (Cheese)',img:IMGS.kasarli_pide,price:750},
+    {id:'pd4',n:'Ottoman Special Pide',img:IMGS.ottoman_sp_pide,price:1000},
+  ],
+  lahmacun:[
+    {id:'lh1',n:'Lahmacun (Chicken)',img:IMGS.lahmacun_chicken,price:750},
+    {id:'lh2',n:'Kasarli Lahmacun (Beef)',img:IMGS.kasarli_lahmacun,price:1050},
+  ],
+  osig:[
+    {id:'os1',n:'Special Doner Durum Platter',img:IMGS.special_doner_durum,price:1100},
+    {id:'os2',n:'Tavuk Durum (Chicken Donner Wrap)',img:IMGS.tavuk_durum,price:750},
+  ],
+  durum:[
+    {id:'dr1',n:'ET Durum (Beef Donner Wrap)',img:IMGS.et_durum,price:1000},
+    {id:'dr2',n:'Turkish Shawarma — Chicken',img:IMGS.turkish_shawarma,price:500},
+    {id:'dr3',n:'Turkish Shawarma — Beef',img:IMGS.turkish_shawarma,price:300},
+  ],
+  pocketdoner:[{id:'pkd1',n:'Pocket Doner Plater',img:IMGS.pocket_doner,price:850}],
+  damkanali:[
+    {id:'dk1',n:'Tavuk Shoyu (Single)',img:IMGS.tavuk_shoyu,price:650},
+    {id:'dk2',n:'Tavuk Shoyu (Half)',img:IMGS.tavuk_shoyu,price:1200},
+    {id:'dk3',n:'Tavuk Shoyu Full (with 1.5L Drink)',img:IMGS.tavuk_shoyu,price:2150},
+    {id:'dk4',n:'Asgara Boti (Chicken)',img:IMGS.asgara_boti,price:1500},
+    {id:'dk5',n:'Asgara Boti (Beef)',img:IMGS.asgara_boti,price:1700},
+  ],
+  rice:[
+    {id:'rc1',n:'Egg Fried Rice',img:IMGS.thai_chinese,price:900},
+    {id:'rc2',n:'Chicken Fried Rice',img:IMGS.thai_chinese,price:900},
+    {id:'rc3',n:'Masala Rice',img:IMGS.thai_chinese,price:900},
+    {id:'rc4',n:'Vegetable Rice',img:IMGS.thai_chinese,price:900},
+  ],
+  gravy:[
+    {id:'gv1',n:'Chicken Manchurian',img:IMGS.thai_chinese_gravy,price:900},
+    {id:'gv2',n:'Chicken Chilli Dry',img:IMGS.thai_chinese_gravy,price:900},
+    {id:'gv3',n:'Chicken Almond',img:IMGS.thai_chinese_gravy,price:900},
+  ],
+  pasta:[
+    {id:'pa1',n:'Alfredo Pasta',img:IMGS.alfredo_pasta,price:750},
+    {id:'pa2',n:'Fajita Pasta',img:IMGS.fajita_pasta,price:750},
+    {id:'pa3',n:'Macroni Pasta',img:IMGS.macroni_pasta,price:750},
+    {id:'pa4',n:'Cheesy Pasta',img:IMGS.cheesy_pasta,price:800},
+  ],
+  chowmian:[{id:'cm1',n:'Chicken Chowmians',img:IMGS.chowmians,price:800}],
+  desserts:[
+    {id:'ds1',n:'Kunafa',img:IMGS.kunafa,price:900},
+    {id:'ds2',n:'Basbousa',img:IMGS.basbousa,price:350},
+    {id:'ds3',n:'Creamy Basbousa',img:IMGS.creamy_basbousa,price:450},
+  ],
+  drinks:[
+    {id:'dri1',n:'Blue Lagoon',img:IMGS.blue_lagoon,price:400},
+    {id:'dri2',n:'Blue Berry Mocktail',img:IMGS.blue_berry,price:400},
+    {id:'dri3',n:'Strawberry Mocktail',img:IMGS.strawberry_mocktail,price:400},
+    {id:'dri4',n:'Fresh Lime',img:IMGS.fresh_lime,price:180},
+    {id:'dri5',n:'Lemonade',img:IMGS.lemonade,price:200},
+    {id:'dri6',n:'Mint Margarita',img:IMGS.mint_margarita,price:300},
+  ],
+  hotdrinks:[
+    {id:'hd1',n:'Turkish Kahwa',emoji:'☕',price:150},
+    {id:'hd2',n:'Karak Chai',emoji:'🧉',price:180},
+  ],
+  sides:[
+    {id:'si1',n:'French Fries',img:IMGS.french_fries,price:250},
+    {id:'si2',n:'Dip Sauces',img:IMGS.dip_sauces,price:100},
+    {id:'si3',n:'Extra Topping (Small)',emoji:'➕',price:80},
+    {id:'si4',n:'Extra Topping (Medium)',emoji:'➕',price:150},
+    {id:'si5',n:'Extra Topping (Large)',emoji:'➕',price:300},
+    {id:'si6',n:'Extra Topping (XL)',emoji:'➕',price:450},
+  ],
+};
+const PLATTERS=[
+  {id:'plt1',n:'Fast Food Plater',img:IMGS.ff_plater,desc:'1 Medium Signature Pizza · 2 Zinger Burger · 1 Taco Wrap · 5 Hot Wings · French Fries · 1.5L Drink',price:2950},
+  {id:'plt2',n:'Ottoman Special Family Platter',img:IMGS.family_platter,desc:'Tavuk Shoyu Full · Asgara Boti · Karasik Pide · Beef Donner · Chicken Doner · Doner Durum · Greek Salad · Fries · Kunafa · Turkish Qahwa',price:6500,half:4500},
+  {id:'plt3',n:'Kusbasi Tawa Platter',img:IMGS.kusbasi_tawa,desc:'1 kg Beef · Garlic Rice · Chicken Doner Pcs · Turkish Donner Bread · Salad · Sauces',price:2950},
+];
+const SUGG=[{id:'sg1',n:'French Fries',price:250,e:'🍟'},{id:'sg2',n:'Dip Sauces',price:100,e:'🥫'},{id:'sg3',n:'Turkish Kahwa',price:150,e:'☕'},{id:'sg4',n:'Karak Chai',price:180,e:'🧉'}];
+
+/* ══ OPEN / CLOSE ALBUM ══ */
+function openAlbum(key){
+  document.getElementById('albumsGrid').style.display='none';
+  const av=document.getElementById('albumView');
+  av.classList.add('open');
+  const m=META[key];
+  document.getElementById('albumTitle').textContent=m.icon+' '+m.label;
+  window.scrollTo(0,0);
+  buildAlbum(key);
+}
+function closeAlbum(){
+  document.getElementById('albumView').classList.remove('open');
+  document.getElementById('albumsGrid').style.display='';
+  window.scrollTo(0,0);
+}
+
+function buildAlbum(key){
+  const el=document.getElementById('albumItems');
+  el.innerHTML='';
+
+  // Platters
+  if(key==='ffplater'){
+    const p=PLATTERS[0];
+    el.innerHTML=`<div class="platter-card"><img src="${p.img}" alt="${p.n}"><div class="p-name">🎉 ${p.n}</div><div class="p-desc">${p.desc}</div><div class="p-price">Rs.${p.price}</div><button class="p-btn" onclick="addCart({id:'plt1',bid:'plt1',n:'Fast Food Plater',price:${p.price},img:'${p.img}',e:'🎉'})">Add to Cart</button></div>`;
+    return;
+  }
+  if(key==='platters'){
+    PLATTERS.slice(1).forEach(p=>{
+      const ph=p.half?`<div class="p-price">Full: Rs.${p.price} | Half: Rs.${p.half}</div>`:`<div class="p-price">Rs.${p.price}</div>`;
+      el.innerHTML+=`<div class="platter-card"><img src="${p.img}" alt="${p.n}"><div class="p-name">${p.n}</div><div class="p-desc">${p.desc}</div>${ph}<button class="p-btn" onclick="openPlatter('${p.id}')">${p.half?'Select Size':'Add to Cart'}</button></div>`;
+    });
+    return;
+  }
+
+  // Beverages — 3-col card grid
+  if(key==='drinks'||key==='hotdrinks'){
+    const g=document.createElement('div');g.className='bev-grid';
+    D[key].forEach(it=>{
+      const th=it.img?`<div class="bev-img"><img src="${it.img}" alt="" loading="lazy"></div>`:`<div class="bev-emoji">${it.emoji||'🥤'}</div>`;
+      const c=document.createElement('div');c.className='bev-card';
+      c.innerHTML=`${th}<div class="bev-name">${it.n}</div><div class="bev-price">Rs.${it.price}</div><button class="bev-btn" id="btn-${it.id}" onclick="addCart({id:'${it.id}',bid:'${it.id}',n:'${it.n}',price:${it.price},img:'${it.img||''}',e:'${it.emoji||'🥤'}'})">+ Add</button>`;
+      g.appendChild(c);
+    });
+    el.appendChild(g);
+    return;
+  }
+
+  // Standard list
+  const list=document.createElement('div');list.className='menu-list';
+  D[key].forEach(it=>{
+    const hasPart=it.portions&&it.portions.length>1;
+    const priceHtml=it.price!=null?`<div class="price-single">Rs.${it.price}</div>`:it.portions.map(p=>`<div class="price-row"><span class="price-tag">${p.l}</span><span class="price-amt">Rs.${p.p}</span></div>`).join('');
+    const th=it.img?`<div class="row-img"><img src="${it.img}" alt="" loading="lazy"></div>`:`<div class="row-img"><span class="row-emoji">${it.emoji||'🍽️'}</span></div>`;
+    const row=document.createElement('div');row.className='menu-row';
+    row.innerHTML=`${th}<div class="row-info"><div class="row-name">${it.n}</div></div><div class="row-prices">${priceHtml}</div><button class="add-btn" id="btn-${it.id}" onclick='tap(${JSON.stringify(it).replace(/'/g,"\'")})'  >+</button>`;
+    list.appendChild(row);
+  });
+  el.appendChild(list);
+}
+
+function tap(it){
+  if(it.price!=null){addCart({id:it.id,bid:it.id,n:it.n,price:it.price,img:it.img||'',e:it.emoji||'🍽️'});return;}
+  if(it.portions.length===1){const p=it.portions[0];addCart({id:it.id+'-'+p.l,bid:it.id,n:it.n+' ('+p.l+')',price:p.p,img:it.img||'',e:'🍽️'});return;}
+  document.getElementById('pTitle').textContent=it.n;
+  const o=document.getElementById('pOpts');o.innerHTML='';
+  it.portions.forEach(p=>{const d=document.createElement('div');d.className='p-opt';d.innerHTML=`<span class="p-lbl">${p.l}</span><span class="p-price">Rs.${p.p}</span>`;d.onclick=()=>{addCart({id:it.id+'-'+p.l,bid:it.id,n:it.n+' ('+p.l+')',price:p.p,img:it.img||'',e:'🍽️'});closePModal();};o.appendChild(d);});
+  document.getElementById('pModal').classList.add('open');
+}
+function openPlatter(pid){
+  const p=PLATTERS.find(x=>x.id===pid);if(!p)return;
+  if(!p.half){addCart({id:p.id,bid:p.id,n:p.n,price:p.price,img:p.img,e:'🍱'});return;}
+  document.getElementById('pTitle').textContent=p.n;
+  const o=document.getElementById('pOpts');o.innerHTML='';
+  [{l:'Full',p:p.price},{l:'Half',p:p.half}].forEach(opt=>{const d=document.createElement('div');d.className='p-opt';d.innerHTML=`<span class="p-lbl">${opt.l}</span><span class="p-price">Rs.${opt.p}</span>`;d.onclick=()=>{addCart({id:p.id+'-'+opt.l,bid:p.id,n:p.n+' ('+opt.l+')',price:opt.p,img:p.img,e:'🍱'});closePModal();};o.appendChild(d);});
+  document.getElementById('pModal').classList.add('open');
+}
+function closePModal(){document.getElementById('pModal').classList.remove('open');}
+
+function addCart(it){const ex=cart.find(c=>c.id===it.id);if(ex)ex.qty++;else cart.push({...it,qty:1});markBtn(it.bid,true);refreshUI();openCart();}
+function markBtn(bid,on){const b=document.getElementById('btn-'+bid);if(!b)return;if(b.classList.contains('bev-btn')){b.className=on?'bev-btn added':'bev-btn';b.textContent=on?'✓ Added':'+ Add';}else{b.className=on?'add-btn added':'add-btn';b.textContent=on?'✓':'+';}}
+function refreshUI(){
+  const tot=cart.reduce((s,c)=>s+c.price*c.qty,0),cnt=cart.reduce((s,c)=>s+c.qty,0);
+  document.getElementById('cartBadge').textContent=cnt;
+  const dc=OT==='delivery'?150:0,grand=tot+dc;
+  document.getElementById('cartTotal').textContent=dc?`Rs.${grand} (incl. Rs.150 delivery)`:`Rs.${grand}`;
+  document.getElementById('cartFab').classList.toggle('hidden',!cart.length);
+  buildCartRows();buildSugg();
+}
+function buildCartRows(){
+  const b=document.getElementById('cartItems'),e=document.getElementById('emptyCart'),f=document.getElementById('cartFoot');
+  if(!cart.length){e.style.display='block';f.style.display='none';b.innerHTML='';return;}
+  e.style.display='none';f.style.display='block';b.innerHTML='';
+  cart.forEach(it=>{const row=document.createElement('div');row.className='cart-row';const th=it.img?`<div class="cr-thumb"><img src="${it.img}" alt=""></div>`:`<div class="cr-thumb">${it.e||'🍽️'}</div>`;row.innerHTML=`${th}<span class="cr-name">${it.n}</span><div class="qty-ctrl"><button class="q-btn" onclick="chQty('${it.id}',-1)">−</button><span class="q-num">${it.qty}</span><button class="q-btn" onclick="chQty('${it.id}',1)">+</button></div><span class="cr-price">Rs.${it.price*it.qty}</span>`;b.appendChild(row);});
+}
+function chQty(id,d){const i=cart.findIndex(c=>c.id===id);if(i<0)return;const bid=cart[i].bid;cart[i].qty+=d;if(cart[i].qty<=0){cart.splice(i,1);markBtn(bid,false);}refreshUI();}
+function buildSugg(){const n=cart.map(c=>c.n.toLowerCase()),s=SUGG.filter(x=>!n.some(y=>y.includes(x.n.toLowerCase().split(' ')[0]))),box=document.getElementById('suggBox'),ch=document.getElementById('suggChips');if(!s.length){box.style.display='none';return;}box.style.display='block';ch.innerHTML='';s.forEach(x=>{const d=document.createElement('div');d.className='sugg-chip';d.textContent=x.e+' '+x.n+' Rs.'+x.price;d.onclick=()=>addCart({id:'sg'+x.id,bid:'sg'+x.id,n:x.n,price:x.price,img:'',e:x.e});ch.appendChild(d);});}
+function selOT(t,btn){OT=t;document.querySelectorAll('.ot-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('fDine').style.display=t==='dine'?'block':'none';document.getElementById('fPickup').style.display=t==='pickup'?'block':'none';document.getElementById('fDelivery').style.display=t==='delivery'?'block':'none';document.querySelectorAll('.err-msg').forEach(e=>e.classList.remove('show'));document.querySelectorAll('.f-field input,.f-field textarea').forEach(f=>f.classList.remove('err'));refreshUI();}
+function openCart(){document.getElementById('cartOverlay').classList.add('open');buildCartRows();buildSugg();}
+function closeCart(){document.getElementById('cartOverlay').classList.remove('open');}
+function doOrder(){
+  if(!cart.length)return;
+  let ok=true;
+  function chk(fid,eid){const f=document.getElementById(fid),e=document.getElementById(eid);f.classList.remove('err');e.classList.remove('show');if(!f.value.trim()){f.classList.add('err');e.classList.add('show');ok=false;return '';}return f.value.trim();}
+  if(OT==='delivery'&&cart.reduce((s,c)=>s+c.price*c.qty,0)<1000){alert('Minimum order for delivery is Rs. 1,000.');return;}
+  let tn='',cn='',ca='',cp='';
+  if(OT==='dine')tn=chk('fTable','eTable');
+  else if(OT==='pickup')cn=chk('fPName','ePName');
+  else{cn=chk('fDName','eDName');ca=chk('fAddr','eAddr');cp=chk('fPhone','ePhone');}
+  if(!ok){document.querySelector('.f-field input.err,.f-field textarea.err')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  const tm={dine:'🍽️ Dine In',pickup:'🛍️ Pick Up',delivery:'🛵 Home Delivery'};
+  let msg=`🥙 *Ottoman Turkish Food Cuisine*
+📋 ${tm[OT]}
+`;
+  if(OT==='dine')msg+=`🪑 Table: ${tn}
+`;
+  if(OT==='pickup')msg+=`👤 Name: ${cn}
+`;
+  if(OT==='delivery')msg+=`👤 ${cn}
+📍 ${ca}
+📞 ${cp}
+`;
+  msg+=`
+🛒 *Order:*
+`;
+  let tot=0;cart.forEach(c=>{msg+=`• ${c.n} ×${c.qty} = Rs.${c.price*c.qty}
+`;tot+=c.price*c.qty;});
+  const dc=OT==='delivery'?150:0;
+  msg+=`
+💰 *Total: Rs.${tot+dc}*${dc?' (incl. Rs.150 delivery)':''}
+
+Kindly confirm. Thank you!`;
+  window.open(`https://wa.me/923210786776?text=${encodeURIComponent(msg)}`,'_blank');
+  showOk();
+}
+function showOk(){cart=[];refreshUI();['cartItems','cartFoot','emptyCart','suggBox','custForm'].forEach(id=>{document.getElementById(id).style.display='none';});document.querySelector('.ot-wrap').style.display='none';document.getElementById('orderOk').classList.add('show');document.querySelectorAll('.add-btn,.bev-btn').forEach(b=>{b.className=b.classList.contains('bev-btn')?'bev-btn':'add-btn';b.textContent=b.classList.contains('bev-btn')?'+ Add':'+'});}
+function resetOrder(){cart=[];OT='dine';['cartItems','custForm'].forEach(id=>{document.getElementById(id).style.display='';});document.querySelector('.ot-wrap').style.display='';document.getElementById('orderOk').classList.remove('show');document.querySelectorAll('.ot-btn').forEach(b=>b.classList.remove('active'));document.getElementById('ot-dine').classList.add('active');document.getElementById('fDine').style.display='block';document.getElementById('fPickup').style.display='none';document.getElementById('fDelivery').style.display='none';['fTable','fPName','fDName','fAddr','fPhone'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});refreshUI();closeCart();}
+
+document.querySelectorAll('.nav-tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');const tab=t.dataset.tab;document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(tab==='menu'?'menuPage':'infoPage').classList.add('active');if(tab==='menu'){document.getElementById('albumView').classList.remove('open');document.getElementById('albumsGrid').style.display='';}});});
+
+refreshUI();
+</script>
+</body>
+</html>
